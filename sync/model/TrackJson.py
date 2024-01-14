@@ -54,7 +54,8 @@ class TrackJson(AttrDict, JsonIO):
             homepage=self.homepage or "",
             source=self.source or "",
             support=self.support or "",
-            donate=self.donate or ""
+            donate=self.donate or "",
+            verified=self.verified or False
         )
 
     def write(self, file):
