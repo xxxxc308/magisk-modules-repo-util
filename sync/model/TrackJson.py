@@ -16,6 +16,8 @@ class TrackJson(AttrDict, JsonIO):
     support: str
     donate: str
     max_num: int
+    category: str
+    categories: list[str] or str
 
     # noinspection PyAttributeOutsideInit
     @property
@@ -55,7 +57,9 @@ class TrackJson(AttrDict, JsonIO):
             source=self.source or "",
             support=self.support or "",
             donate=self.donate or "",
-            verified=self.verified or False
+            verified=self.verified or False,
+            category=self.category or "",
+            categories=self.categories or []
         )
 
     def write(self, file):
