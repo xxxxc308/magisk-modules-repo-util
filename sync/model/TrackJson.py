@@ -7,6 +7,7 @@ from .JsonIO import JsonIO
 class TrackJson(AttrDict, JsonIO):
     id: str
     enable: bool
+    verified: bool
     update_to: str
     changelog: str
     license: str
