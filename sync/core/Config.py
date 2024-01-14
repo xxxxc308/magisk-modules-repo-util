@@ -39,6 +39,11 @@ class Config(ConfigJson):
         max_num = self.get("max_num", default.max_num)
         enable_log = self.get("enable_log", default.enable_log)
 
+        website = self.get("website", default.website)
+        support = self.get("support", default.support)
+        donate = self.get("donate", default.donate)
+        submission = self.get("submission", default.submission)
+
         log_dir = self.get("log_dir", default.log_dir)
         if log_dir != default.log_dir:
             log_dir = Path(log_dir)
@@ -48,6 +53,10 @@ class Config(ConfigJson):
 
         self.update(
             name=name,
+            website=website,
+            support=support,
+            donate=donate,
+            submission=submission,
             base_url=base_url,
             max_num=max_num,
             enable_log=enable_log,

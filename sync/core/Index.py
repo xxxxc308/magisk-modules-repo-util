@@ -55,6 +55,10 @@ class Index:
         if self.modules_json is None:
             self.modules_json = ModulesJson(
                 name=self._config.name,
+                website=self._config.website,
+                support=self._config.support,
+                donate=self._config.donate,
+                submission=self._config.submission,
                 metadata=AttrDict(
                     version=1,
                     timestamp=datetime.now().timestamp()
