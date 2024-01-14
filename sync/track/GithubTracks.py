@@ -165,7 +165,7 @@ class GithubTracks(BaseTracks):
             if _license == "NOASSERTION":
                 _license = "UNKNOWN"
         except UnknownObjectException:
-            _license = None
+            _license = ""
 
         return _license
 
@@ -174,7 +174,7 @@ class GithubTracks(BaseTracks):
         try:
             changelog = repo.get_contents("changelog.md").download_url
         except UnknownObjectException:
-            changelog = None
+            changelog = ""
 
         return changelog
 
@@ -183,7 +183,7 @@ class GithubTracks(BaseTracks):
         try:
             readme = repo.get_contents("README.md").download_url
         except UnknownObjectException:
-            readme = None
+            readme = ""
 
         return readme
 
