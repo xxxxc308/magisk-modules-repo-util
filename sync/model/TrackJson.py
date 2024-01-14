@@ -16,6 +16,12 @@ class TrackJson(AttrDict, JsonIO):
     support: str
     donate: str
     max_num: int
+    # author: str
+    # contributors: list[str]
+    cover: str
+    logo:str
+    screenshots: list[str]
+    require: list[str]
     category: str
     categories: list[str] or str
 
@@ -58,6 +64,9 @@ class TrackJson(AttrDict, JsonIO):
             support=self.support or "",
             donate=self.donate or "",
             verified=self.verified or False,
+            cover=self.cover or None,
+            logo=self.logo or None,
+            screenshots=self.screenshots or None,
             category=self.category or "",
             categories=self.categories or []
         )
