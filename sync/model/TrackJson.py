@@ -60,18 +60,18 @@ class TrackJson(AttrDict, JsonIO):
         return AttrDict(
             type=self.type.name,
             added=self.added,
-            license=self.license or None,
-            homepage=self.homepage or None,
-            source=self.source or None,
-            support=self.support or None,
-            donate=self.donate or None,
+            license=self.license or "",
+            homepage=self.homepage or "",
+            source=self.source or "",
+            support=self.support or "",
+            donate=self.donate or "",
             verified=self.verified or False,
-            cover=self.cover or None,
-            logo=self.logo or None,
-            screenshots=self.screenshots or None,
-            category=self.category or None,
+            cover=self.cover or "",
+            logo=self.logo or "",
+            screenshots=self.screenshots or "",
+            category=self.category or "",
             categories=self.categories or [],
-            readme=self.readme or None,
+            readme=self.readme or "",
             stars=self.stars or 0
         )
 
