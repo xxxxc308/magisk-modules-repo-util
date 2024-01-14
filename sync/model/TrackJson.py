@@ -24,6 +24,8 @@ class TrackJson(AttrDict, JsonIO):
     require: list[str]
     category: str
     categories: list[str] or str
+    readme: str
+    stars: int
 
     # noinspection PyAttributeOutsideInit
     @property
@@ -58,17 +60,19 @@ class TrackJson(AttrDict, JsonIO):
         return AttrDict(
             type=self.type.name,
             added=self.added,
-            license=self.license or "",
-            homepage=self.homepage or "",
-            source=self.source or "",
-            support=self.support or "",
-            donate=self.donate or "",
+            license=self.license or None,
+            homepage=self.homepage or None,
+            source=self.source or None,
+            support=self.support or None,
+            donate=self.donate or None,
             verified=self.verified or False,
             cover=self.cover or None,
             logo=self.logo or None,
             screenshots=self.screenshots or None,
-            category=self.category or "",
-            categories=self.categories or []
+            category=self.category or None,
+            categories=self.categories or [],
+            readme=self.readme or None,
+            stars=self.stars or 0
         )
 
     def write(self, file):

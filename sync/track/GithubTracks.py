@@ -63,6 +63,8 @@ class GithubTracks(BaseTracks):
         if homepage is None:
             homepage = ""
 
+        readme = self.get_readme(repo)
+
         return TrackJson(
             id=repo.name,
             update_to=update_to,
@@ -71,7 +73,9 @@ class GithubTracks(BaseTracks):
             homepage=homepage,
             source=repo.clone_url,
             support=issues,
-            donate=donate
+            donate=donate,
+            readme=readme,
+            stars=int(repo.stargazers_count)
         )
 
     def _get_from_repo(self, repo, cover, use_ssh):
@@ -161,7 +165,7 @@ class GithubTracks(BaseTracks):
             if _license == "NOASSERTION":
                 _license = "UNKNOWN"
         except UnknownObjectException:
-            _license = ""
+            _license = None
 
         return _license
 
@@ -170,9 +174,19 @@ class GithubTracks(BaseTracks):
         try:
             changelog = repo.get_contents("changelog.md").download_url
         except UnknownObjectException:
-            changelog = ""
+            changelog = None
 
         return changelog
+
+    @classmethod
+    def get_readme(cls, repo):
+        try:
+            readme = repo.get_contents("README.md").download_url
+        except UnknownObjectException:
+            readme = None
+
+        return readme
+
 
     @classmethod
     def is_module_repo(cls, repo):
