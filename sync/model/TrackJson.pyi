@@ -27,6 +27,7 @@ class TrackJson(AttrDict, JsonIO):
     category: str
     categories: list[str] or str
     readme: str
+    antifeatures: list[str] or str
 
     # without manually
     added: float 
