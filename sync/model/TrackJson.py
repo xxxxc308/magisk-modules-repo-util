@@ -19,7 +19,7 @@ class TrackJson(AttrDict, JsonIO):
     # author: str
     # contributors: list[str]
     cover: str
-    logo:str
+    icon:str
     screenshots: list[str]
     require: list[str]
     category: str
@@ -66,7 +66,7 @@ class TrackJson(AttrDict, JsonIO):
             donate=self.donate or "",
             verified=self.verified or False,
             cover=self.cover or "",
-            logo=self.logo or "",
+            icon=self.icon or "",
             screenshots=self.screenshots or "",
             category=self.category or "",
             categories=self.categories or [],

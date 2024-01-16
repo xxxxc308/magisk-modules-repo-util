@@ -21,7 +21,7 @@ class TrackJson(AttrDict, JsonIO):
     # author: str
     # contributors: list[str]
     cover: str
-    logo: str
+    icon: str
     screenshots: list[str]
     require: list[str]
     category: str
