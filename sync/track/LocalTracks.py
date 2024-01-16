@@ -98,7 +98,7 @@ class LocalTracks(BaseTracks):
             old = TrackJson.load(json_file)
             old.added = old.added or datetime.fromtimestamp(json_file.stat().st_ctime)
             old.enable = old.enable or True
-            # old.verified = old.verified or False
+            old.verified = old.verified or False
 
             old.update(track)
             old.write(json_file)
