@@ -33,6 +33,10 @@ class OnlineModule(AttrDict):
 
 class ModulesJson(AttrDict, JsonIO):
     name: str
+    website: str
+    support: str
+    donate: str
+    submission: str
     metadata: AttrDict
     modules: List[OnlineModule]
 

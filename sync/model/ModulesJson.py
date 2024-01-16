@@ -36,6 +36,10 @@ class OnlineModule(AttrDict):
         if track is not None:
             obj["track"] = AttrDict(track)
 
+        timestamp = obj.get("timestamp")
+        if timestamp is not None:
+            obj["timestamp"] = AttrDict(timestamp)
+
         return OnlineModule(obj)
 
 
