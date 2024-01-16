@@ -83,48 +83,66 @@ options:
 ## config.json
 ```json
 {
-  "name": "str",
-  "base_url": "str",
-  "max_num": "int",
-  "enable_log": "bool",
-  "log_dir": "str"
+  "name": "Googlers Magisk Repo",
+  "website": "https://mmrl.dergoogler.com",
+  "support": "https://github.com/Googlers-Repo/repo/issues",
+  "donate": "https://github.com/sponsors/DerGoogler",
+  "submission": null,
+  "base_url": "https://gr.dergoogler.com/repo/",
+  "max_num": 3,
+  "enable_log": true,
+  "log_dir": "log"
 }
 ```
-| Key | Attribute | Description |
-|:-:|:-:|:-:|
-| name | required | Name of your module repository |
-| base_url | required | Need to end with `/` |
-| max_num | optional | Max num of versions for modules, default is `3` |
-| enable_log | optional | default is `true` |
-| log_dir | optional | default is `null` |
+| Key         | Attribute | Description                                     |
+|-------------|-----------|-------------------------------------------------|
+| name        | required  | Name of your module repository                  |
+| base_url    | required  | Need to end with `/`                            |
+| website     | optional  | Name of your website                            |
+| donate      | optional  | Name of your donation url                       |
+| submission  | optional  | Link to your submission requests                |
+| support     | optional  | Link to your support chat                       |
+| max_num     | optional  | Max num of versions for modules, default is `3` |
+| enable_log  | optional  | default is `true`                               |
+| log_dir     | optional  | default is `null`                               |
 
 ## track.json
 ```json
 {
   "id": "str",
   "enable": "bool",
+  "verified": "bool",
   "update_to": "str",
-  "changelog": "str",
-  "license": "str",
-  "homepage": "str",
   "source": "str",
   "support": "str",
   "donate": "str",
+  "cover": "str",
+  "icon": "str",
+  "screenshots": "array or str",
+  "categories": "array or str",
+  "antifeatures": "array or str",
   "max_num": "int"
 }
 ```
-| Key | Attribute | Description |
-|:-:|:-:|:-:|
-| id | required | Id of Module (_in `module.prop`_) |
-| enable | required | Whether to enable |
-| update_to | required | Follow examples below |
-| changelog | optional | Markdown or Simple Text (**_no HTML_**) |
-| license | optional | SPDX ID |
-| homepage | optional | Url |
-| source | optional | Url |
-| support | optional | Url |
-| donate | optional | Url |
-| max_num | optional | Overload `MAX_NUM` in config.json |
+| Key           | Attribute | Description                             |
+|---------------|-----------|-----------------------------------------|
+| id            | required  | Id of Module (_in `module.prop`_)       |
+| enable        | required  | Whether to enable                       |
+| update_to     | required  | Follow examples below                   |
+| changelog     | optional  | Markdown or Simple Text (**_no HTML_**) |
+| license       | optional  | SPDX ID                                 |
+| verified      | optional  | Bool                                    |
+| cover         | optional  | Url                                     |
+| icon          | optional  | Url                                     |
+| screenshots   | optional  | Url[]                                   |
+| antifeatures  | optional  | Str[]                                   |
+| category      | optional  | Str                                     |
+| categories    | optional  | Str[]                                   |
+| homepage      | optional  | Url                                     |
+| source        | optional  | Url                                     |
+| support       | optional  | Url                                     |
+| donate        | optional  | Url                                     |
+| max_num       | optional  | Overload `MAX_NUM` in config.json       |
 
 ### Update from updateJson
 > For those modules that provide [updateJson](https://topjohnwu.github.io/Magisk/guides.html#moduleprop). 
