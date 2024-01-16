@@ -71,7 +71,7 @@ class TrackJson(AttrDict, JsonIO):
             screenshots=self.screenshots or "",
             category=self.category or "",
             categories=self.categories or [],
-            readme=self.readme or ""
+            readme=self.readme or "",
             antifeatures=self.antifeatures or ""
         )
 
