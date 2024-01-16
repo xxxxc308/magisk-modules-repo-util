@@ -11,9 +11,11 @@ class LocalModule(AttrDict):
     versionCode: int
     author: str
     description: str
+    added: int
+    timestamp: int
 
     @classmethod
-    def load(cls, file):
+    def load(cls, file, track):
         zipfile = ZipFile(file, "r")
         fields = cls.expected_fields()
 
@@ -51,6 +53,9 @@ class LocalModule(AttrDict):
         local_module = LocalModule()
         for key in fields.keys():
             local_module[key] = obj.get(key)
+
+        local_module.added = track.added
+        local_module.timestamp = track.last_update
 
         return local_module
 

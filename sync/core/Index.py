@@ -82,16 +82,16 @@ class Index:
             online_module=online_module,
         )
 
-    def get_online_module(self, module_id, zip_file):
+    def get_online_module(self, track, zip_file):
         @Result.catching()
         def get_online_module():
-            local_module = LocalModule.load(zip_file)
+            local_module = LocalModule.load(zip_file, track)
             return OnlineModule.from_dict(local_module)
 
         result = get_online_module()
         if result.is_failure:
             msg = Log.get_msg(result.error)
-            self._log.e(f"get_online_module: [{module_id}] -> {msg}")
+            self._log.e(f"get_online_module: [{track.id}] -> {msg}")
             return None
 
         else:
@@ -111,7 +111,7 @@ class Index:
             if not zip_file.exists():
                 continue
 
-            online_module = self.get_online_module(track.id, zip_file)
+            online_module = self.get_online_module(track, zip_file)
             if online_module is None:
                 continue
 

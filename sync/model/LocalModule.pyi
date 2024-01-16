@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Dict, Type
 
 from .AttrDict import AttrDict
+from .TrackJson import TrackJson
 
 
 class LocalModule(AttrDict):
@@ -13,6 +14,6 @@ class LocalModule(AttrDict):
     description: str
 
     @classmethod
-    def load(cls, file: Path) -> LocalModule: ...
+    def load(cls, file: Path, track: TrackJson) -> LocalModule: ...
     @classmethod
     def expected_fields(cls, __type: bool = ...) -> Dict[str, Type]: ...
