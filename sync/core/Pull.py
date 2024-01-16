@@ -100,8 +100,8 @@ class Pull:
 
         return changelog_file
 
-    def _from_zip_common(self, module_id, zip_file, changelog_file, *, delete_tmp):
-        module_folder = self._modules_folder.joinpath(module_id)
+    def _from_zip_common(self, track, zip_file, changelog_file, *, delete_tmp):
+        module_folder = self._modules_folder.joinpath(track.id)
 
         def remove_file():
             if delete_tmp:
@@ -111,9 +111,9 @@ class Pull:
 
         zip_file_size = zip_file.stat().st_size / (1024 ** 2)
         if zip_file_size > self._max_size:
-            new_module_folder = self._local_folder.joinpath(module_id)
+            new_module_folder = self._local_folder.joinpath(track.id)
             msg = f"zip file is oversize ({self._max_size} MB), move this module to {new_module_folder}"
-            self._log.w(f"_from_zip_common: [{module_id}] -> {msg}")
+            self._log.w(f"_from_zip_common: [{track.id}] -> {msg}")
             shutil.rmtree(new_module_folder, ignore_errors=True)
             shutil.move(module_folder, new_module_folder)
 
@@ -121,20 +121,20 @@ class Pull:
 
         @Result.catching()
         def get_online_module():
-            local_module = LocalModule.load(zip_file)
+            local_module = LocalModule.load(zip_file, track)
             return OnlineModule.from_dict(local_module)
 
         result = get_online_module()
         if result.is_failure:
             msg = Log.get_msg(result.error)
-            self._log.e(f"_from_zip_common: [{module_id}] -> {msg}")
+            self._log.e(f"_from_zip_common: [{track.id}] -> {msg}")
             remove_file()
             return None
         else:
             online_module: OnlineModule = result.value
 
         target_zip_file = module_folder.joinpath(online_module.zipfile_name)
-        if self._check_version_code(module_id, online_module.versionCode):
+        if self._check_version_code(track.id, online_module.versionCode):
             self._copy_file(zip_file, target_zip_file, delete_tmp)
         else:
             remove_file()
@@ -144,11 +144,11 @@ class Pull:
         changelog_url = ""
         if changelog_file is not None:
             self._copy_file(changelog_file, target_changelog_file, delete_tmp)
-            changelog_url = self._get_file_url(module_id, target_changelog_file)
+            changelog_url = self._get_file_url(track.id, target_changelog_file)
 
         # For OnlineModule.to_VersionItem
         online_module.latest = AttrDict(
-            zipUrl=self._get_file_url(module_id, target_zip_file),
+            zipUrl=self._get_file_url(track.id, target_zip_file),
             changelog=changelog_url
         )
 
@@ -186,7 +186,7 @@ class Pull:
             last_modified = result.value
 
         changelog = self._get_changelog_common(track.id, update_json.changelog)
-        online_module = self._from_zip_common(track.id, zip_file, changelog, delete_tmp=True)
+        online_module = self._from_zip_common(track, zip_file, changelog, delete_tmp=True)
         return online_module, last_modified
 
     def from_url(self, track):
@@ -201,7 +201,7 @@ class Pull:
             last_modified = result.value
 
         changelog = self._get_changelog_common(track.id, track.changelog)
-        online_module = self._from_zip_common(track.id, zip_file, changelog, delete_tmp=True)
+        online_module = self._from_zip_common(track, zip_file, changelog, delete_tmp=True)
         return online_module, last_modified
 
     def from_git(self, track):
@@ -220,7 +220,7 @@ class Pull:
             last_committed = result.value
 
         changelog = self._get_changelog_common(track.id, track.changelog)
-        online_module = self._from_zip_common(track.id, zip_file, changelog, delete_tmp=True)
+        online_module = self._from_zip_common(track, zip_file, changelog, delete_tmp=True)
         return online_module, last_committed
 
     def from_zip(self, track):
@@ -236,7 +236,7 @@ class Pull:
         if not changelog.exists():
             changelog = None
 
-        online_module = self._from_zip_common(track.id, zip_file, changelog, delete_tmp=False)
+        online_module = self._from_zip_common(track, zip_file, changelog, delete_tmp=False)
         return online_module, last_modified
 
     def from_track(self, track):

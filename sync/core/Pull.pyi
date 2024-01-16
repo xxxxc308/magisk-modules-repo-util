@@ -31,7 +31,7 @@ class Pull:
     def _get_changelog_common(self, module_id: str, changelog: Optional[str]) -> Optional[Path]: ...
     def _from_zip_common(
         self,
-        module_id: str,
+        track: TrackJson,
         zip_file: Path,
         changelog_file: Optional[Path],
         *,
