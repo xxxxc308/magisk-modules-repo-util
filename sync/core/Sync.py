@@ -64,7 +64,6 @@ class Sync:
             )
 
         version_item = online_module.to_VersionItem(timestamp)
-        update_json.timestamp = timestamp
         update_json.versions.append(version_item)
 
         max_num = self._config.max_num
