@@ -74,8 +74,7 @@ class GithubTracks(BaseTracks):
             source=repo.clone_url,
             support=issues,
             donate=donate,
-            readme=readme,
-            stars=int(repo.stargazers_count)
+            readme=readme
         )
 
     def _get_from_repo(self, repo, cover, use_ssh):

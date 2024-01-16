@@ -25,7 +25,6 @@ class TrackJson(AttrDict, JsonIO):
     category: str
     categories: list[str] or str
     readme: str
-    stars: int
 
     # noinspection PyAttributeOutsideInit
     @property
@@ -71,8 +70,7 @@ class TrackJson(AttrDict, JsonIO):
             screenshots=self.screenshots or "",
             category=self.category or "",
             categories=self.categories or [],
-            readme=self.readme or "",
-            stars=self.stars or 0
+            readme=self.readme or ""
         )
 
     def write(self, file):
