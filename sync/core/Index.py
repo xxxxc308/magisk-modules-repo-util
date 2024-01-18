@@ -156,7 +156,7 @@ class Index:
             update_json = UpdateJson.load(update_json_file)
             latest = update_json.versions[-1]
             zip_file = module_folder.joinpath(latest.zipfile_name)
-            online_module = self.get_online_module(track.id, zip_file)
+            online_module = self.get_online_module(track, zip_file)
 
             if online_module is not None:
                 name = online_module.name.replace("|", "-")
