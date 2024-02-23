@@ -25,6 +25,7 @@ class TrackJson(AttrDict, JsonIO):
     category: str
     categories: list[str] or str
     readme: str
+    require: list[str] or str
     antifeatures: list[str] or str
 
     # noinspection PyAttributeOutsideInit
