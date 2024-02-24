@@ -91,8 +91,6 @@ class LocalTracks(BaseTracks):
             track.added = datetime.now().timestamp()
             track.enable = True
             track.verified = False
-            track.category = ""
-            track.categories = []
             track.write(json_file)
         elif cover:
             old = TrackJson.load(json_file)

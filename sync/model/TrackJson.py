@@ -73,6 +73,7 @@ class TrackJson(AttrDict, JsonIO):
             category=self.category or "",
             categories=self.categories or [],
             readme=self.readme or "",
+            require=self.require or [],
             antifeatures=self.antifeatures or ""
         )
 
