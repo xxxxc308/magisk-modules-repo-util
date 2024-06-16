@@ -25,10 +25,10 @@ class TrackJson(AttrDict, JsonIO):
     screenshots: list[str]
     require: list[str]
     category: str
-    categories: list[str] or str
+    categories: list[str]
     readme: str
-    require: list[str] or str
-    antifeatures: list[str] or str
+    require: list[str]
+    antifeatures: list[str]
 
     # without manually
     added: float 
