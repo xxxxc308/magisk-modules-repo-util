@@ -23,10 +23,10 @@ class TrackJson(AttrDict, JsonIO):
     screenshots: list[str]
     require: list[str]
     category: str
-    categories: list[str] or str
+    categories: list[str]
     readme: str
-    require: list[str] or str
-    antifeatures: list[str] or str
+    require: list[str]
+    antifeatures: list[str]
 
     # noinspection PyAttributeOutsideInit
     @property
@@ -69,12 +69,12 @@ class TrackJson(AttrDict, JsonIO):
             verified=self.verified or False,
             cover=self.cover or "",
             icon=self.icon or "",
-            screenshots=self.screenshots or "",
+            screenshots=self.screenshots or [],
             category=self.category or "",
             categories=self.categories or [],
             readme=self.readme or "",
             require=self.require or [],
-            antifeatures=self.antifeatures or ""
+            antifeatures=self.antifeatures or []
         )
 
     def write(self, file):
