@@ -54,7 +54,7 @@ class LocalModule(AttrDict):
         for key in fields.keys():
             local_module[key] = obj.get(key)
 
-        local_module.added = track.added
+        local_module.added = track.added or 0
         local_module.timestamp = track.last_update
 
         return local_module
