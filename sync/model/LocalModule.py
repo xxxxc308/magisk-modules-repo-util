@@ -32,6 +32,7 @@ class LocalModule(AttrDict):
     screenshots: list[str]
     readme: str
     require: list[str]
+    verified: bool
 
     @classmethod
     def load(cls, file, track):
@@ -87,6 +88,7 @@ class LocalModule(AttrDict):
         except BaseException:
             pass
 
+        local_module.verified = track.verified or False
         local_module.added = track.added or 0
         local_module.timestamp = track.last_update
 
