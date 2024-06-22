@@ -127,7 +127,7 @@ options:
 | source        | optional  | Url                                     |
 | max_num       | optional  | Overload `MAX_NUM` in config.json       |
 
-## `fastlane/magisk/repo.json`
+## `common/repo.json`
 
 > [!IMPORTANT]
 > This file should be placed in the modules root directory
