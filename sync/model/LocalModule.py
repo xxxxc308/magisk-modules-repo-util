@@ -75,7 +75,7 @@ class LocalModule(AttrDict):
             local_module[key] = obj.get(key)
 
         try:
-            raw_json = json.loads(zipfile.read("fastlane/magisk/repo.json").decode("utf-8"))
+            raw_json = json.loads(zipfile.read("common/repo.json").decode("utf-8"))
 
             for item in raw_json.items():
                 key, value = item
