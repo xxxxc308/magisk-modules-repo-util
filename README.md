@@ -128,6 +128,10 @@ options:
 | max_num       | optional  | Overload `MAX_NUM` in config.json       |
 
 ## `fastlane/magisk/repo.json`
+
+> [!IMPORTANT]
+> This file should be placed in the modules root directory
+
 ```json
 {
   "support": "str",
