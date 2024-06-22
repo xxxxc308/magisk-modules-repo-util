@@ -118,9 +118,9 @@ options:
   "donate": "str",
   "cover": "str",
   "icon": "str",
-  "screenshots": "array or str",
-  "categories": "array or str",
-  "antifeatures": "array or str",
+  "screenshots": "array",
+  "categories": "array",
+  "antifeatures": "array",
   "max_num": "int"
 }
 ```
