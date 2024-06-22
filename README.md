@@ -114,13 +114,6 @@ options:
   "verified": "bool",
   "update_to": "str",
   "source": "str",
-  "support": "str",
-  "donate": "str",
-  "cover": "str",
-  "icon": "str",
-  "screenshots": "array",
-  "categories": "array",
-  "antifeatures": "array",
   "max_num": "int"
 }
 ```
@@ -130,8 +123,29 @@ options:
 | enable        | required  | Whether to enable                       |
 | update_to     | required  | Follow examples below                   |
 | changelog     | optional  | Markdown or Simple Text (**_no HTML_**) |
-| license       | optional  | SPDX ID                                 |
 | verified      | optional  | Bool                                    |
+| source        | optional  | Url                                     |
+| max_num       | optional  | Overload `MAX_NUM` in config.json       |
+
+## `fastlane/magisk/repo.json`
+```json
+{
+  "support": "str",
+  "donate": "str",
+  "cover": "str",
+  "icon": "str",
+  "license": "str",
+  "homepage": "str",
+  "screenshots": ["array"],
+  "category": "str",
+  "categories": ["array"],
+  "antifeatures": ["array"],
+  "require": ["array"]
+}
+```
+| Key           | Attribute | Description                             |
+|---------------|-----------|-----------------------------------------|
+| license       | optional  | SPDX ID                                 |
 | cover         | optional  | Url                                     |
 | icon          | optional  | Url                                     |
 | screenshots   | optional  | Url[]                                   |
@@ -139,10 +153,8 @@ options:
 | category      | optional  | Str                                     |
 | categories    | optional  | Str[]                                   |
 | homepage      | optional  | Url                                     |
-| source        | optional  | Url                                     |
 | support       | optional  | Url                                     |
 | donate        | optional  | Url                                     |
-| max_num       | optional  | Overload `MAX_NUM` in config.json       |
 
 ### Update from updateJson
 > For those modules that provide [updateJson](https://topjohnwu.github.io/Magisk/guides.html#moduleprop). 

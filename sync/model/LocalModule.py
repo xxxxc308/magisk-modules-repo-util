@@ -1,7 +1,13 @@
+import json
+
 from zipfile import ZipFile
 
 from .AttrDict import AttrDict
 from ..error import MagiskModuleError
+
+from ..utils import (
+    Log,
+)
 
 
 class LocalModule(AttrDict):
@@ -13,6 +19,19 @@ class LocalModule(AttrDict):
     description: str
     added: int
     timestamp: int
+    category: str
+    categories: list[str]
+    icon: str
+    antifeatures: list[str]
+    homepage: str
+    donate: str
+    support: str
+    cover: str
+    screenshots: list[str]
+    license: str
+    screenshots: list[str]
+    readme: str
+    require: list[str]
 
     @classmethod
     def load(cls, file, track):
@@ -53,6 +72,20 @@ class LocalModule(AttrDict):
         local_module = LocalModule()
         for key in fields.keys():
             local_module[key] = obj.get(key)
+
+        try:
+            raw_json = json.loads(zipfile.read("fastlane/magisk/repo.json").decode("utf-8"))
+
+            for item in raw_json.items():
+                key, value = item
+                
+                _type = fields[key]
+                obj[key] = _type(value)
+                
+                for key in fields.keys():
+                    local_module[key] = obj.get(key)
+        except BaseException:
+            pass
 
         local_module.added = track.added or 0
         local_module.timestamp = track.last_update
