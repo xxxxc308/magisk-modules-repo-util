@@ -22,7 +22,7 @@ class LocalModule(AttrDict):
     category: str
     categories: list[str]
     icon: str
-    antifeatures: list[str]
+    # antifeatures: list[str]
     homepage: str
     donate: str
     support: str

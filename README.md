@@ -140,7 +140,8 @@ options:
   "update_to": "str",
   "source": "str",
   "readme": "str",
-  "max_num": "int"
+  "max_num": "int",
+  "antifeatures": ["array"]
 }
 ```
 
@@ -150,6 +151,7 @@ options:
 | enable    | required  | Whether to enable                       |
 | update_to | required  | Follow examples below                   |
 | changelog | optional  | Markdown or Simple Text (**_no HTML_**) |
+| antifeatures  | optional  | Str[]                                   |
 | verified  | optional  | Bool                                    |
 | source    | optional  | Url                                     |
 | max_num   | optional  | Overload `MAX_NUM` in config.json       |
@@ -172,7 +174,6 @@ options:
   "screenshots": ["array"],
   "category": "str",
   "categories": ["array"],
-  "antifeatures": ["array"],
   "require": ["array"]
 }
 ```
