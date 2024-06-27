@@ -2,9 +2,13 @@ import json
 import logging
 import os
 import sys
+import json
+import xml.etree.ElementTree as ET
 from argparse import Namespace
 from pathlib import Path
 from typing import Sequence, Type, Tuple
+from xml.dom import minidom
+from datetime import datetime
 
 from dateutil.parser import parse
 
@@ -19,7 +23,10 @@ from ..core import (
 )
 from ..model import TrackJson, JsonIO, ConfigJson, AttrDict
 from ..track import LocalTracks, GithubTracks
-from ..utils import Log
+from ..utils import (
+    Log,
+    Sitemap
+)
 
 
 class SafeArgs(Namespace):
@@ -77,6 +84,8 @@ class Main:
             return cls.index()
         elif cls._args.cmd == Parameters.CHECK:
             return cls.check()
+        elif cls._args.cmd == Parameters.SITEMAP:
+            return cls.sitemap()
 
     @classmethod
     def config(cls) -> int:
@@ -320,6 +329,18 @@ class Main:
         if cls._args.remove_old:
             check.old(module_ids=cls._args.module_ids)
 
+        return cls.CODE_SUCCESS
+
+    @classmethod
+    def sitemap(cls)-> int:
+        root_folder = Path(cls._args.root_folder).resolve()
+        config = Config(root_folder)
+        
+        modules_json = cls._args.modules_json or config.get_json_folder(root_folder).joinpath("modules.json")
+        base_url = cls._args.base_url
+        output = cls._args.output or config.get_json_folder(root_folder).joinpath("sitemap.xml")
+
+        Sitemap(modules_json, base_url, output)
         return cls.CODE_SUCCESS
 
 

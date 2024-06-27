@@ -53,6 +53,7 @@ class Parameters:
     SYNC = "sync"
     INDEX = "index"
     CHECK = "check"
+    SITEMAP = "sitemap"
 
     @classmethod
     def set_root_folder(cls, root: Path):
@@ -97,6 +98,7 @@ class Parameters:
         cls.configure_parser_sync(sub_parsers)
         cls.configure_parser_index(sub_parsers)
         cls.configure_parser_check(sub_parsers)
+        cls.configure_parser_sitemap(sub_parsers)
 
         cls._choices = sub_parsers.choices
 
@@ -391,6 +393,36 @@ class Parameters:
             help=f"Remove old versions by max_num."
         )
 
+        cls.add_parser_env(p)
+
+    @classmethod
+    def configure_parser_sitemap(cls, sub_parsers):
+        p = sub_parsers.add_parser(
+            cls.SITEMAP,
+            help="Sitemap generator."
+        )
+        p.add_argument(
+            "-m",
+            "--modules-json",
+            dest="modules_json",
+            
+            help="Path to the modules.json file."
+        )
+        p.add_argument(
+            "-b",
+            "--base-url",
+            dest="base_url",
+            required=True,
+            help="Base url that should be used."
+        )
+        p.add_argument(
+            "-o",
+            "--output",
+            dest="output",
+            help="Outputs the file to the given path."
+        )
+
+        cls.add_parser_git(p)
         cls.add_parser_env(p)
 
     @classmethod

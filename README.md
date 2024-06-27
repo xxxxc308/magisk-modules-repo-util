@@ -5,13 +5,17 @@
 - `cli.py` is a cli tool
 
 ## Getting Started
+
 ### Install dependencies
+
 ```shell
 pip3 install -r util/requirements.txt
 ```
 
 ### New config.json
+
 You can write it to `your-repo/json/config.json` by yourself, or
+
 ```shell
 cli.py config --stdin << EOF
 {
@@ -23,13 +27,17 @@ cli.py config --stdin << EOF
 }
 EOF
 ```
-or 
+
+or
+
 ```shell
 cli.py config --write name="Your Magisk Repo" base_url="https://you.github.io/magisk-modules-repo/" max_num=3 enable_log=true log_dir="log"
 ```
 
 ### New track.json
+
 You can write it to `your-repo/modules/{id}/track.json` by yourself, or
+
 ```shell
 cli.py track --stdin << EOF
 {
@@ -39,26 +47,39 @@ cli.py track --stdin << EOF
 }
 EOF
 ```
+
 or
+
 ```shell
 cli.py track --add id="zygisk_lsposed" update_to="https://lsposed.github.io/LSPosed/release/zygisk.json" license="GPL-3.0"
 ```
+
 If you want to generate `track.json`s from repositories on github
+
 ```shell
-cli.py github --token <github-token> -u <user-name> -r <repo-name ...> 
+cli.py github --token <github-token> -u <user-name> -r <repo-name ...>
 ```
+
 > **_TIP_**: [click here to create a new api token](https://github.com/settings/personal-access-tokens/new).
 
 ### Sync
+
 ```shell
-cli.py sync 
+cli.py sync
+```
+
+### Generate a sitemap
+
+```shell
+cli.py sitemap --base-url "https://mmrl.dergoogler.com/?module="
 ```
 
 ## How to update by GitHub Actions?
+
 - You can refer to [demo](https://github.com/MRepoApp/demo-modules-repo) or [MRepoApp/magisk-modules-alt-repo](https://github.com/MRepoApp/magisk-modules-alt-repo).
 
-
 ## cli.py
+
 ```
 cli.py --help
 usage: cli.py [-h] [-v] [-V] command ...
@@ -73,6 +94,7 @@ positional arguments:
     sync              Sync modules in repository.
     index             Generate modules.json from local.
     check             Content check and migrate.
+    sitemap           Sitemap generator.
 
 options:
   -h, --help          Show this help message and exit.
@@ -81,6 +103,7 @@ options:
 ```
 
 ## config.json
+
 ```json
 {
   "name": "Googlers Magisk Repo",
@@ -94,19 +117,21 @@ options:
   "log_dir": "log"
 }
 ```
-| Key         | Attribute | Description                                     |
-|-------------|-----------|-------------------------------------------------|
-| name        | required  | Name of your module repository                  |
-| base_url    | required  | Need to end with `/`                            |
-| website     | optional  | Name of your website                            |
-| donate      | optional  | Name of your donation url                       |
-| submission  | optional  | Link to your submission requests                |
-| support     | optional  | Link to your support chat                       |
-| max_num     | optional  | Max num of versions for modules, default is `3` |
-| enable_log  | optional  | default is `true`                               |
-| log_dir     | optional  | default is `null`                               |
+
+| Key        | Attribute | Description                                     |
+| ---------- | --------- | ----------------------------------------------- |
+| name       | required  | Name of your module repository                  |
+| base_url   | required  | Need to end with `/`                            |
+| website    | optional  | Name of your website                            |
+| donate     | optional  | Name of your donation url                       |
+| submission | optional  | Link to your submission requests                |
+| support    | optional  | Link to your support chat                       |
+| max_num    | optional  | Max num of versions for modules, default is `3` |
+| enable_log | optional  | default is `true`                               |
+| log_dir    | optional  | default is `null`                               |
 
 ## track.json
+
 ```json
 {
   "id": "str",
@@ -114,18 +139,21 @@ options:
   "verified": "bool",
   "update_to": "str",
   "source": "str",
+  "readme": "str",
   "max_num": "int"
 }
 ```
-| Key           | Attribute | Description                             |
-|---------------|-----------|-----------------------------------------|
-| id            | required  | Id of Module (_in `module.prop`_)       |
-| enable        | required  | Whether to enable                       |
-| update_to     | required  | Follow examples below                   |
-| changelog     | optional  | Markdown or Simple Text (**_no HTML_**) |
-| verified      | optional  | Bool                                    |
-| source        | optional  | Url                                     |
-| max_num       | optional  | Overload `MAX_NUM` in config.json       |
+
+| Key       | Attribute | Description                             |
+| --------- | --------- | --------------------------------------- |
+| id        | required  | Id of Module (_in `module.prop`_)       |
+| enable    | required  | Whether to enable                       |
+| update_to | required  | Follow examples below                   |
+| changelog | optional  | Markdown or Simple Text (**_no HTML_**) |
+| verified  | optional  | Bool                                    |
+| source    | optional  | Url                                     |
+| max_num   | optional  | Overload `MAX_NUM` in config.json       |
+| readme    | optional  | Str                                     |
 
 ## `common/repo.json`
 
@@ -140,6 +168,7 @@ options:
   "icon": "str",
   "license": "str",
   "homepage": "str",
+  "readme": "str",
   "screenshots": ["array"],
   "category": "str",
   "categories": ["array"],
@@ -147,21 +176,24 @@ options:
   "require": ["array"]
 }
 ```
-| Key           | Attribute | Description                             |
-|---------------|-----------|-----------------------------------------|
-| license       | optional  | SPDX ID                                 |
-| cover         | optional  | Url                                     |
-| icon          | optional  | Url                                     |
-| screenshots   | optional  | Url[]                                   |
-| antifeatures  | optional  | Str[]                                   |
-| category      | optional  | Str                                     |
-| categories    | optional  | Str[]                                   |
-| homepage      | optional  | Url                                     |
-| support       | optional  | Url                                     |
-| donate        | optional  | Url                                     |
+
+| Key          | Attribute | Description |
+| ------------ | --------- | ----------- |
+| license      | optional  | SPDX ID     |
+| cover        | optional  | Url         |
+| icon         | optional  | Url         |
+| readme       | optional  | Str         |
+| screenshots  | optional  | Url[]       |
+| antifeatures | optional  | Str[]       |
+| category     | optional  | Str         |
+| categories   | optional  | Str[]       |
+| homepage     | optional  | Url         |
+| support      | optional  | Url         |
+| donate       | optional  | Url         |
 
 ### Update from updateJson
-> For those modules that provide [updateJson](https://topjohnwu.github.io/Magisk/guides.html#moduleprop). 
+
+> For those modules that provide [updateJson](https://topjohnwu.github.io/Magisk/guides.html#moduleprop).
 
 ```json
 {
@@ -172,7 +204,9 @@ options:
 ```
 
 ### Update from local updateJson
-> *update_to* requires a relative directory of *local*.
+
+> _update_to_ requires a relative directory of _local_.
+
 ```json
 {
   "id": "zygisk_lsposed",
@@ -182,7 +216,9 @@ options:
 ```
 
 ### Update from url
+
 > For those have a same url to release new modules.
+
 ```json
 {
   "id": "zygisk_lsposed",
@@ -193,6 +229,7 @@ options:
 ```
 
 ### Update from git
+
 > For those we can get module by packaging all files in the repository, such as [Magisk-Modules-Repo](https://github.com/Magisk-Modules-Repo) and [Magisk-Modules-Alt-Repo](https://github.com/Magisk-Modules-Alt-Repo).
 
 ```json
@@ -203,7 +240,8 @@ options:
 ```
 
 ### Update from local zip
-> *update_to* and *changelog* requires a relative directory of *local*.
+
+> _update_to_ and _changelog_ requires a relative directory of _local_.
 
 ```json
 {
@@ -215,6 +253,7 @@ options:
 ```
 
 ## For developer
+
 ```
 your-repo
 ├── json
@@ -248,6 +287,7 @@ your-repo
 ```
 
 ### update.json
+
 ```json
 {
   "id": "zygisk_lsposed",
@@ -265,6 +305,7 @@ your-repo
 ```
 
 ### track.json
+
 ```json
 {
   "id": "zygisk_lsposed",
@@ -280,7 +321,9 @@ your-repo
 ```
 
 ## modules.json
+
 ### version 1
+
 ```json
 {
   "name": "{name}",
@@ -320,6 +363,7 @@ your-repo
 ```
 
 ### version 0
+
 ```json
 {
   "name": "{name}",
