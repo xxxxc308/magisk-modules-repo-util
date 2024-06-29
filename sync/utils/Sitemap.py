@@ -1,5 +1,7 @@
 import json
+import validators
 import xml.etree.ElementTree as ET
+
 from xml.dom import minidom
 from datetime import datetime
 
@@ -29,7 +31,7 @@ def Sitemap(modules_json, base_url, output):
         lastmod_element = ET.SubElement(url_element, "lastmod")
         
         cover = module.get("cover") if module.get("cover") else module.get("track").get("cover") 
-        if cover:
+        if cover and validators.url(cover):
             url_image_image = ET.SubElement(url_element, "image:image")
             url_image_image_loc = ET.SubElement(url_image_image, "image:loc")
             url_image_image_loc.text = cover
