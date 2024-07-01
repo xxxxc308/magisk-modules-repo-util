@@ -16,7 +16,7 @@ class OnlineModule(AttrDict):
     description: str
 
     # for ModulesJson
-    timestamp: int
+    timestamp: float
     track: AttrDict
     versions: List[VersionItem]
 

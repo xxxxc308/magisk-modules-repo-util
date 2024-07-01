@@ -18,7 +18,7 @@ class LocalModule(AttrDict):
     author: str
     description: str
     added: int
-    timestamp: int
+    timestamp: float
     category: str
     categories: list[str]
     icon: str
