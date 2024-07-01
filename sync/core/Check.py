@@ -72,7 +72,8 @@ class Check:
             version=item.version,
             versionCode=item.versionCode,
             zipUrl=new_zip_url,
-            changelog=new_changelog_url
+            changelog=new_changelog_url,
+            size=zipfile.stat().st_size
         )
 
     def _check_update_json(self, track, update_json, check_id):

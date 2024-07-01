@@ -7,6 +7,7 @@ from .JsonIO import JsonIO
 
 class VersionItem(AttrDict):
     timestamp: float
+    size: float
     version: str
     versionCode: int
     zipUrl: str

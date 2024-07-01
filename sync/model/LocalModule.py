@@ -1,6 +1,7 @@
 import json
 
 from zipfile import ZipFile
+from pathlib import Path
 
 from .AttrDict import AttrDict
 from ..error import MagiskModuleError
@@ -17,12 +18,14 @@ class LocalModule(AttrDict):
     versionCode: int
     author: str
     description: str
-    added: int
+    
+    added: float
     timestamp: float
+    size: float
+    
     category: str
     categories: list[str]
     icon: str
-    # antifeatures: list[str]
     homepage: str
     donate: str
     support: str
@@ -91,6 +94,7 @@ class LocalModule(AttrDict):
         local_module.verified = track.verified or False
         local_module.added = track.added or 0
         local_module.timestamp = track.last_update
+        local_module.size = Path(file).stat().st_size
 
         return local_module
 

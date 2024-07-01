@@ -43,7 +43,10 @@ class Sync:
 
         update_json_file = module_folder.joinpath(UpdateJson.filename())
         track_json_file = module_folder.joinpath(TrackJson.filename())
-
+        zipfile = module_folder.joinpath(online_module.zipfile_name)
+            
+            
+            
         if force:
             for file in module_folder.glob("*"):
                 if file.name not in [
@@ -63,7 +66,7 @@ class Sync:
                 versions=list()
             )
 
-        version_item = online_module.to_VersionItem(timestamp)
+        version_item = online_module.to_VersionItem(timestamp, zipfile.stat().st_size)
         update_json.versions.append(version_item)
 
         max_num = self._config.max_num

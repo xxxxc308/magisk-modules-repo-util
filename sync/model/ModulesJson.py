@@ -17,13 +17,14 @@ class OnlineModule(AttrDict):
     def zipfile_name(self):
         return StrUtils.get_filename(self.version_display, "zip")
 
-    def to_VersionItem(self, timestamp):
+    def to_VersionItem(self, timestamp, zipfile_size):
         return VersionItem(
             timestamp=timestamp,
             version=self.version,
             versionCode=self.versionCode,
             zipUrl=self.latest.zipUrl,
-            changelog=self.latest.changelog
+            changelog=self.latest.changelog,
+            size=zipfile_size
         )
 
     @classmethod

@@ -149,6 +149,7 @@ class Pull:
         # For OnlineModule.to_VersionItem
         online_module.latest = AttrDict(
             zipUrl=self._get_file_url(track.id, target_zip_file),
+            size=target_zip_file.stat().st_size, 
             changelog=changelog_url
         )
 
