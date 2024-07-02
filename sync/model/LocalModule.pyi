@@ -17,6 +17,11 @@ class LocalModule(AttrDict):
     timestamp: float
     size: float
     
+    # FoxMMM supported props
+    maxApi: int
+    minApi: int
+    
+    # MMRL supported props
     category: str
     categories: list[str]
     icon: str
