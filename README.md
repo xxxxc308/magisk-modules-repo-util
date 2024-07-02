@@ -1,6 +1,7 @@
 # Magisk Modules Repo Util
 
-- This util is to build module repository for [MMRL](https://github.com/DerGoogler/MMRL) and [MRepo](https://github.com/MRepoApp/MRepo)
+This util is to build module repository for [MMRL](https://github.com/DerGoogler/MMRL)
+
 - `sync` is a python package
 - `cli.py` is a cli tool
 
