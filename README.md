@@ -61,7 +61,8 @@ If you want to generate `track.json`s from repositories on github
 cli.py github --token <github-token> -u <user-name> -r <repo-name ...>
 ```
 
-> **_TIP_**: [click here to create a new api token](https://github.com/settings/personal-access-tokens/new).
+> [!TIP]
+> Click [here](https://github.com/settings/personal-access-tokens/new) to create a new api token.
 
 ### Sync
 
@@ -77,7 +78,7 @@ cli.py sitemap --base-url "https://mmrl.dergoogler.com/?module="
 
 ## How to update by GitHub Actions?
 
-- You can refer to [demo](https://github.com/MRepoApp/demo-modules-repo) or [MRepoApp/magisk-modules-alt-repo](https://github.com/MRepoApp/magisk-modules-alt-repo).
+- You can refer to [GMR](https://github.com/Googlers-Repo/gmr).
 
 ## cli.py
 
