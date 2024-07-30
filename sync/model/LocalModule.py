@@ -10,6 +10,8 @@ from ..utils import (
     Log,
 )
 
+from .ModuleNote import ModuleNote
+
 
 class LocalModule(AttrDict):
     id: str
@@ -41,6 +43,7 @@ class LocalModule(AttrDict):
     readme: str
     require: list[str]
     verified: bool
+    note: ModuleNote
 
     @classmethod
     def load(cls, file, track):
