@@ -164,7 +164,7 @@ options:
 > [!IMPORTANT]
 > This file should be placed in the modules root directory
 
-```json
+```jsonc
 {
   "support": "str",
   "donate": "str",
@@ -176,7 +176,12 @@ options:
   "screenshots": ["array"],
   "category": "str",
   "categories": ["array"],
-  "require": ["array"]
+  "require": ["array"],
+  "note": {
+    "title": "str" // optional
+    "color": "red,blue,yellow,green", // optional
+    "message": "str" // required
+  }
 }
 ```
 
@@ -193,6 +198,7 @@ options:
 | homepage     | optional  | Url         |
 | support      | optional  | Url         |
 | donate       | optional  | Url         |
+| note         | optional  | Note        |
 
 ### Update from updateJson
 
