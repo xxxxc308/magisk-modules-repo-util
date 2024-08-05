@@ -6,10 +6,6 @@ from pathlib import Path
 from .AttrDict import AttrDict
 from ..error import MagiskModuleError
 
-from ..utils import (
-    Log,
-)
-
 from .ModuleNote import ModuleNote
 
 
@@ -83,7 +79,10 @@ class LocalModule(AttrDict):
 
         local_module = LocalModule()
         for key in fields.keys():
-            local_module[key] = obj.get(key)
+            if track.get(key):
+                local_module[key] = track.get(key)
+            else:
+                local_module[key] = obj.get(key)
 
         try:
             raw_json = json.loads(zipfile.read("common/repo.json").decode("utf-8"))
@@ -96,6 +95,7 @@ class LocalModule(AttrDict):
                 
                 for key in fields.keys():
                     local_module[key] = obj.get(key)
+                    
         except BaseException:
             pass
 
