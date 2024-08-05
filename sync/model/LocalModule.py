@@ -3,8 +3,12 @@ import json
 from zipfile import ZipFile
 from pathlib import Path
 
+from ..model import ConfigJson
+
 from .AttrDict import AttrDict
 from ..error import MagiskModuleError
+
+from .JsonIO import JsonIO
 
 from .ModuleNote import ModuleNote
 
@@ -42,7 +46,7 @@ class LocalModule(AttrDict):
     note: ModuleNote
 
     @classmethod
-    def load(cls, file, track):
+    def load(cls, file, track, config):
         zipfile = ZipFile(file, "r")
         fields = cls.expected_fields()
 
@@ -79,10 +83,14 @@ class LocalModule(AttrDict):
 
         local_module = LocalModule()
         for key in fields.keys():
-            if track.get(key):
-                local_module[key] = track.get(key)
-            else:
-                local_module[key] = obj.get(key)
+            
+            if config.allowedCategories and key == "categories" and track.get("categories"):
+                local_module[key] = JsonIO.filterArray(config.allowedCategories, track.get(key))
+            else: 
+                if track.get(key):
+                    local_module[key] = track.get(key)
+                else:
+                    local_module[key] = obj.get(key)
 
         try:
             raw_json = json.loads(zipfile.read("common/repo.json").decode("utf-8"))
