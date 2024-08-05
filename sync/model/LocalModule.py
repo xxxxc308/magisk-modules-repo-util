@@ -83,7 +83,6 @@ class LocalModule(AttrDict):
 
         local_module = LocalModule()
         for key in fields.keys():
-            
             if config.allowedCategories and key == "categories" and track.get("categories"):
                 local_module[key] = JsonIO.filterArray(config.allowedCategories, track.get(key))
             else: 
