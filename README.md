@@ -162,7 +162,7 @@ options:
 ## `common/repo.json`
 
 > [!IMPORTANT]
-> This file should be placed in the modules root directory
+> This file can be placed in the modules root directory
 
 ```json
 {
