@@ -6,6 +6,9 @@ from .TrackJson import TrackJson
 
 from ..core.Config import Config
 
+from .ModuleNote import ModuleNote
+from .ModuleFeatures import ModuleFeatures
+
 class LocalModule(AttrDict):
     id: str
     name: str
@@ -36,6 +39,8 @@ class LocalModule(AttrDict):
     readme: str
     require: list[str]
     verified: bool
+    note: ModuleNote
+    features: ModuleFeatures
 
     @classmethod
     def load(cls, file: Path, track: TrackJson, config: Config) -> LocalModule: ...

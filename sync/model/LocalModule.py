@@ -3,14 +3,13 @@ import json
 from zipfile import ZipFile
 from pathlib import Path
 
-from ..model import ConfigJson
-
 from .AttrDict import AttrDict
 from ..error import MagiskModuleError
 
 from .JsonIO import JsonIO
 
 from .ModuleNote import ModuleNote
+from .ModuleFeatures import ModuleFeatures
 
 
 class LocalModule(AttrDict):
@@ -44,32 +43,29 @@ class LocalModule(AttrDict):
     require: list[str]
     verified: bool
     note: ModuleNote
+    features: ModuleFeatures
 
     @classmethod
     def load(cls, file, track, config):
-        zipfile = ZipFile(file, "r")
+        cls._zipfile = ZipFile(file, "r")
         fields = cls.expected_fields()
 
         try:
-            if (
-                "#MAGISK" not in zipfile
-                .read("META-INF/com/google/android/updater-script")
-                .decode("utf-8")
-            ):
+            if ("#MAGISK" not in cls.file_read("META-INF/com/google/android/updater-script")):
                 raise
-
-            zipfile.read("META-INF/com/google/android/update-binary")
+            if (not cls.file_exist("META-INF/com/google/android/update-binary")):
+                raise
         except BaseException:
             msg = f"{file.name} is not a magisk module"
             raise MagiskModuleError(msg)
 
         try:
-            props = zipfile.read("module.prop")
+            props = cls.file_read( "module.prop")
         except BaseException as err:
             raise MagiskModuleError(err.args)
 
         obj = AttrDict()
-        for item in props.decode("utf-8").splitlines():
+        for item in props.splitlines():
             prop = item.split("=", maxsplit=1)
             if len(prop) != 2:
                 continue
@@ -85,23 +81,24 @@ class LocalModule(AttrDict):
         for key in fields.keys():
             if config.allowedCategories and key == "categories" and track.get("categories"):
                 local_module[key] = JsonIO.filterArray(config.allowedCategories, track.get(key))
-            else: 
-                if track.get(key):
-                    local_module[key] = track.get(key)
-                else:
-                    local_module[key] = obj.get(key)
+            else:
+                value = track.get(key) if track.get(key) is not None else obj.get(key)
+                if value is not None and value is not False:  # Filter out None and False values
+                    local_module[key] = value
 
         try:
-            raw_json = json.loads(zipfile.read("common/repo.json").decode("utf-8"))
+            raw_json = json.loads(cls.file_read("common/repo.json"))
 
             for item in raw_json.items():
                 key, value = item
-                
+
                 _type = fields[key]
                 obj[key] = _type(value)
-                
-                for key in fields.keys():
-                    local_module[key] = obj.get(key)
+
+            for key in fields.keys():
+                value = obj.get(key)
+                if value is not None and value is not False:  # Filter out None and False values
+                    local_module[key] = value
                     
         except BaseException:
             pass
@@ -109,13 +106,43 @@ class LocalModule(AttrDict):
         local_module.verified = track.verified or False
         local_module.added = track.added or 0
         local_module.timestamp = track.last_update
-        local_module.size = Path(file).stat().st_size
+        local_module.size = Path(file).stat().st_size        
+        
+        features = {
+            "service": cls.file_exist(f"service.sh") or cls.file_exist(f"common/service.sh"),
+            "post_fs_data": cls.file_exist(f"post-fs-data.sh") or cls.file_exist(f"common/post-fs-data.sh"),
+            # system.prop
+            "resetprop": cls.file_exist(f"system.prop") or cls.file_exist(f"common/system.prop"),
+            "sepolicy": cls.file_exist(f"sepolicy.rule"),
+            
+            "zygisk": cls.file_exist(f"zygisk/"),
+
+            # KernelSU
+            "webroot": cls.file_exist(f"webroot/index.html"),
+            "post_mount": cls.file_exist(f"post-mount.sh") or cls.file_exist(f"common/post-mount.sh"),
+            "boot_completed": cls.file_exist(f"boot-completed.sh") or cls.file_exist(f"common/boot-completed.sh"),
+
+            # MMRL
+            "modconf": cls.file_exist(f"system/usr/share/mmrl/config/{local_module.id}/index.jsx"),
+            
+            "apks": len([name for name in cls._zipfile.namelist() if name.endswith('.apk')]) != 0
+        }
+        
+        local_module.features = {k: v for k, v in features.items() if v is not None and v is not False}
 
         return local_module
-
+   
+    @classmethod
+    def file_exist(cls, name: str): 
+        return name in cls._zipfile.namelist()
+    
+    @classmethod
+    def file_read(cls, name: str): 
+        return cls._zipfile.read(name).decode("utf-8")
+   
     @classmethod
     def expected_fields(cls, __type=True):
         if __type:
             return cls.__annotations__
 
-        return {k: v.__name__ for k, v in cls.__annotations__.items()}
+        return {k: v.__name__ for k, v in cls.__annotations__.items() if v is not None and v is not False}
