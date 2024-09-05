@@ -147,17 +147,32 @@ options:
 }
 ```
 
-| Key          | Attribute | Description                             |
-| ------------ | --------- | --------------------------------------- |
-| id           | required  | Id of Module (_in `module.prop`_)       |
-| enable       | required  | Whether to enable                       |
-| update_to    | required  | Follow examples below                   |
-| changelog    | optional  | Markdown or Simple Text (**_no HTML_**) |
-| antifeatures | optional  | Str[]                                   |
-| verified     | optional  | Bool                                    |
-| source       | optional  | Url                                     |
-| max_num      | optional  | Overload `MAX_NUM` in config.json       |
-| readme       | optional  | Str                                     |
+| Key          | Attribute | Type  | Description                                       |
+| ------------ | --------- | ----- | ------------------------------------------------- |
+| id           | required  | Str   | Id of Module (_in `module.prop`_)                 |
+| enable       | required  | Bool  | Whether to enable updates                         |
+| update_to    | required  | Str   | Follow examples below                             |
+| source       | optional  | Str   | Url of where the source code lives                |
+| homepage     | optional  | Str   | URL                                               |
+| readme       | optional  | Str   | URL with e.g. description, instructions           |
+| changelog    | optional  | Str   | Markdown or Simple Text (**_no HTML_**)           |
+| support      | optional  | Str   | URL to issue tracker/support forum                |
+| donate       | optional  | Str   | URL to donation page                              |
+| cover        | optional  | Str   | URL to cover image (featureGraphic)               |
+| icon         | optional  | Str   | URL to icon.png (squared, max 512x512 px)         |
+| screenshots  | optional  | Str[] | URLs to screenshots of the module                 |
+| license      | optional  | Str   | SPDX identifier (see below)                       |
+| antifeatures | optional  | Str[] | potentially unwanted "features" (see below)       |
+| category     | optional  | Str   | category the module belongs to (deprecated)       |
+| categories   | optional  | Str[] | array of categories the module belongs to         |
+| require      | optional  | Str[] | array of `module_id`s this module depends on      |
+| verified     | optional  | Bool  | if module has good quality and is well maintained |
+| max_num      | optional  | Int   | Overload `MAX_NUM` in `config.json`               |
+| versions     | auto      | Int   | how many versions are present (do not touch!)     |
+
+Examples for antifeatures and their meanings can e.g. be [found here](https://gitlab.com/IzzyOnDroid/repo/-/blob/master/lib/antifeatures.json).
+
+For SPDX identifiers, see the [SPDX license list](https://spdx.org/licenses/).
 
 ## `common/repo.json`
 
