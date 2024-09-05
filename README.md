@@ -177,7 +177,7 @@ For SPDX identifiers, see the [SPDX license list](https://spdx.org/licenses/).
 ## `common/repo.json`
 
 > [!IMPORTANT]
-> This file should be placed in the modules root directory
+> This file can be placed in the modules root directory. If a repo owner has added your module to his repo he can override those fields with the `track.json` file
 
 ```jsonc
 {

@@ -55,6 +55,9 @@ class Pull:
             return True
 
         update_json = UpdateJson.load(json_file)
+        if version_code is None:
+          self._log.e(f"_check_version_code: [{module_id}] has no version code set")
+          return False
         if len(update_json.versions) != 0 and version_code > update_json.versions[-1].versionCode:
             return True
 
@@ -121,7 +124,7 @@ class Pull:
 
         @Result.catching()
         def get_online_module():
-            local_module = LocalModule.load(zip_file, track)
+            local_module = LocalModule.load(zip_file, track, self._config)
             return OnlineModule.from_dict(local_module)
 
         result = get_online_module()
