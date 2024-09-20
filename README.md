@@ -204,21 +204,21 @@ For SPDX identifiers, see the [SPDX license list](https://spdx.org/licenses/).
 }
 ```
 
-| Key          | Attribute | Description   |
-| ------------ | --------- | ------------- |
-| license      | optional  | SPDX ID       |
-| cover        | optional  | Url           |
-| icon         | optional  | Url           |
-| readme       | optional  | Str           |
-| screenshots  | optional  | Url[]         |
-| antifeatures | optional  | Str[]         |
-| category     | optional  | Str           |
-| categories   | optional  | Str[]         |
-| homepage     | optional  | Url           |
-| support      | optional  | Url           |
-| donate       | optional  | Url           |
-| note         | optional  | Note          |
-| root         | optional  | RootSolutions |
+| Key          | Attribute | Description                                                                                 |
+| ------------ | --------- | ------------------------------------------------------------------------------------------- |
+| license      | optional  | SPDX ID                                                                                     |
+| cover        | optional  | Url                                                                                         |
+| icon         | optional  | Url                                                                                         |
+| readme       | optional  | Str                                                                                         |
+| screenshots  | optional  | Url[]                                                                                       |
+| antifeatures | optional  | Str[]                                                                                       |
+| category     | optional  | Str                                                                                         |
+| categories   | optional  | Str[]                                                                                       |
+| homepage     | optional  | Url                                                                                         |
+| support      | optional  | Url                                                                                         |
+| donate       | optional  | Url                                                                                         |
+| note         | optional  | Note                                                                                        |
+| root         | optional  | RootSolutions (you should follow the [semver](https://www.npmjs.com/package/semver)) syntax |
 
 ### Update from updateJson
 
