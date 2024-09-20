@@ -193,27 +193,32 @@ For SPDX identifiers, see the [SPDX license list](https://spdx.org/licenses/).
   "categories": ["array"],
   "require": ["array"],
   "note": {
-    "title": "str" // optional
+    "title": "str", // optional
     "color": "red,blue,yellow,green", // optional
     "message": "str" // required
+  },
+  "root": {
+    "kernelsu": ">= 1.0.0",
+    "magisk": ">= 24.0
   }
 }
 ```
 
-| Key          | Attribute | Description |
-| ------------ | --------- | ----------- |
-| license      | optional  | SPDX ID     |
-| cover        | optional  | Url         |
-| icon         | optional  | Url         |
-| readme       | optional  | Str         |
-| screenshots  | optional  | Url[]       |
-| antifeatures | optional  | Str[]       |
-| category     | optional  | Str         |
-| categories   | optional  | Str[]       |
-| homepage     | optional  | Url         |
-| support      | optional  | Url         |
-| donate       | optional  | Url         |
-| note         | optional  | Note        |
+| Key          | Attribute | Description   |
+| ------------ | --------- | ------------- |
+| license      | optional  | SPDX ID       |
+| cover        | optional  | Url           |
+| icon         | optional  | Url           |
+| readme       | optional  | Str           |
+| screenshots  | optional  | Url[]         |
+| antifeatures | optional  | Str[]         |
+| category     | optional  | Str           |
+| categories   | optional  | Str[]         |
+| homepage     | optional  | Url           |
+| support      | optional  | Url           |
+| donate       | optional  | Url           |
+| note         | optional  | Note          |
+| root         | optional  | RootSolutions |
 
 ### Update from updateJson
 

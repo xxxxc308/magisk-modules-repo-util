@@ -10,7 +10,7 @@ from .JsonIO import JsonIO
 
 from .ModuleNote import ModuleNote
 from .ModuleFeatures import ModuleFeatures
-
+from .RootSolutions import RootSolutions
 
 class LocalModule(AttrDict):
     id: str
@@ -44,6 +44,7 @@ class LocalModule(AttrDict):
     verified: bool
     note: ModuleNote
     features: ModuleFeatures
+    root: RootSolutions
 
     @classmethod
     def load(cls, file, track, config):
